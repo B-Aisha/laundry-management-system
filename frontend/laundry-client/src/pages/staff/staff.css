@@ -1,0 +1,69 @@
+:root {
+  --primary: #2e7d32;
+  --light: #f4f6f5;
+}
+
+/* NAVBAR */
+.staff-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+/* BODY */
+.staff-body {
+  display: flex;
+  margin-top: 60px;
+}
+
+/* SIDEBAR */
+.staff-sidebar {
+  background: #e8f5e9;
+  height: calc(100vh - 60px);
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+.staff-sidebar.open {
+  width: 220px;
+}
+
+.staff-sidebar.closed {
+  width: 60px;
+}
+
+/* CONTENT */
+.staff-main {
+  flex: 1;
+  padding: 20px;
+  background: var(--light);
+}
+
+/* CARDS */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.dashboard-card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.dashboard-card:hover {
+  background: #e8f5e9;
+}
