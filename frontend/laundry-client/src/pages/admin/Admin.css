@@ -1,0 +1,121 @@
+:root {
+  --primary: #2e7d32;
+  --light: #f4f6f5;
+  --dark: #1b1b1b;
+}
+
+/* NAVBAR */
+.admin-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+.logout-btn {
+  background: white;
+  color: var(--primary);
+  border: none;
+  padding: 8px 14px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* BODY */
+.admin-body {
+  display: flex;
+  margin-top: 60px;
+}
+
+/* SIDEBAR */
+.admin-sidebar {
+  background: #e8f5e9;
+  height: calc(100vh - 60px);
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+.admin-sidebar.open {
+  width: 220px;
+}
+
+.admin-sidebar.closed {
+  width: 60px;
+}
+
+/* Sidebar items */
+.admin-sidebar ul {
+  list-style: none;
+  padding: 10px;
+}
+
+.admin-sidebar li {
+  display: flex;
+  align-items: center;
+  padding: 12px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.admin-sidebar li:hover {
+  background: #c8e6c9;
+  border-radius: 6px;
+}
+
+.icon {
+  font-size: 18px;
+  width: 30px;
+  text-align: center;
+}
+
+.label {
+  margin-left: 10px;
+}
+
+
+/* MAIN CONTENT */
+
+.admin-body {
+  display: flex;
+  margin-top: 60px;
+}
+.admin-main {
+  flex: 1;
+  padding: 20px;
+  background: var(--light);
+  transition: margin-left 0.3s ease;
+}
+
+
+
+.toggle-btn {
+  margin-bottom: 10px;
+}
+
+/* DASHBOARD CARDS */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.dashboard-card {
+  background: white;
+  padding: 30px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.dashboard-card:hover {
+  background: #e8f5e9;
+}
