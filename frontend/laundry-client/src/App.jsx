@@ -4,6 +4,7 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import StaffDashboard from "./pages/staff/StaffDashboard";
+import CustomerDashboard from "./pages/customer/CustomerDashboard";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/auth/signup" element={<Signup />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/staff" element={<StaffDashboard />} />
+        <Route path="/customer" element={<CustomerDashboard />} />
       </Routes>
     </BrowserRouter>
   );
