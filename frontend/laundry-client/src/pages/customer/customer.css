@@ -116,3 +116,57 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   border-color: var(--accent);
 }
+
+
+/* GREETING BOX */
+.welcome-box {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  border-left: 5px solid var(--accent);
+}
+
+.welcome-box h2 {
+  margin-bottom: 5px;
+}
+
+.welcome-box p {
+  color: #555;
+}
+
+/* CARD ENHANCEMENTS */
+.card-icon {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.dashboard-card h4 {
+  margin: 10px 0 5px;
+  font-size: 16px;
+}
+
+.dashboard-card p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* ACCENT CARD */
+.dashboard-card.accent::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--accent),
+    #16a085
+  );
+}
+
+.dashboard-card {
+  position: relative;
+  overflow: hidden;
+}
