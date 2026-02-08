@@ -1,20 +1,21 @@
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
 
-namespace LaundryManagementAPI.models
+namespace LaundryManagement.API.models
 {
     public class ApplicationUser : IdentityUser
     {
-        // You can still add custom fields here
-         public string? FullName { get; set; }
+        // Profile info
+        public string? FullName { get; set; }
 
-            public string? Role { get; set; }// Use carefully; we'll handle this with claims or role manager too
+        // Prefer using Identity Roles, but keeping for flexibility
+        public string? Role { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        // Audit
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        
-        //public Customer? Customer { get; set; }
-        //public Staff? Staff { get; set; }
-        //public ICollection<Order> Orders { get; set; } = new List<Order>();
-        
+        // Navigation Properties
+        public ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

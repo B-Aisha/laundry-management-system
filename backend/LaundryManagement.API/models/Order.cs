@@ -1,3 +1,5 @@
+using System;
+
 namespace LaundryManagement.API.models
 {
     public class Order
@@ -6,13 +8,12 @@ namespace LaundryManagement.API.models
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        // Pending, Received, Washing, Ready, Collected
         public string Status { get; set; } = "Pending";
 
-        // FK
-        public int UserId { get; set; }
+        // Foreign Key to Identity User (string)
+        public string ApplicationUserId { get; set; } = default!;
 
-        // Navigation
-        //public User User { get; set; } = null!;
+        // Navigation Property
+        public ApplicationUser ApplicationUser { get; set; } = default!;
     }
 }
