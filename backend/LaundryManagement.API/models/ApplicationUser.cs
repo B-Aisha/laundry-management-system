@@ -12,8 +12,7 @@ namespace LaundryManagement.API.models
         public string? Address { get; set; }
 
         // Prefer using Identity Roles, but keeping for flexibility
-        public string? Role { get; set; }
-
+        public string UserType { get; set; } = "Customer";
         // Audit
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
