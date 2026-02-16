@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using LaundryManagement.API.models;
 
 namespace LaundryManagement.API.data
@@ -17,9 +17,9 @@ namespace LaundryManagement.API.data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany(u => u.Orders)
-                .WithOne(o => o.ApplicationUser)
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.ApplicationUser)
+                .WithMany(u => u.Orders)
                 .HasForeignKey(o => o.ApplicationUserId)
                 .OnDelete(DeleteBehavior.Cascade);
         }

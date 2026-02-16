@@ -9,6 +9,8 @@ namespace LaundryManagement.API.models
         // Profile info
         public string? FullName { get; set; }
 
+        public string? Address { get; set; }
+
         // Prefer using Identity Roles, but keeping for flexibility
         public string? Role { get; set; }
 

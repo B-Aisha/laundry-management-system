@@ -11,9 +11,9 @@ namespace LaundryManagement.API.models
         public string Status { get; set; } = "Pending";
 
         // Foreign Key to Identity User (string)
-        public string ApplicationUserId { get; set; } = default!;
+        public string ApplicationUserId { get; set; } = null!;
 
         // Navigation Property
-        public ApplicationUser ApplicationUser { get; set; } = default!;
+        public ApplicationUser ApplicationUser { get; set; } = null!;
     }
 }
