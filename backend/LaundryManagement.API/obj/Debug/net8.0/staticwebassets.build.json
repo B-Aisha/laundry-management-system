@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "DMrzXWwGn4GK6yfUR8sQKLzyroapbEcr3ljE8Imun3U=",
+  "Hash": "VfLnw9NAIL8NEhaLyktigPRkjDNVumt3LDUuU/n6180=",
   "Source": "LaundryManagement.API",
   "BasePath": "_content/LaundryManagement.API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

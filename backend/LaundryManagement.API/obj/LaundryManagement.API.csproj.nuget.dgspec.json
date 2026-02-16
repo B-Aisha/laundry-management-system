@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\Erick\\Code\\laundry-management-system\\backend\\LaundryManagement.API\\LaundryManagement.API.csproj": {}
+    "C:\\Users\\25472\\Desktop\\LaundryManagementSystemProject\\backend\\LaundryManagement.API\\LaundryManagement.API.csproj": {}
   },
   "projects": {
-    "D:\\Users\\Erick\\Code\\laundry-management-system\\backend\\LaundryManagement.API\\LaundryManagement.API.csproj": {
+    "C:\\Users\\25472\\Desktop\\LaundryManagementSystemProject\\backend\\LaundryManagement.API\\LaundryManagement.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\Erick\\Code\\laundry-management-system\\backend\\LaundryManagement.API\\LaundryManagement.API.csproj",
+        "projectUniqueName": "C:\\Users\\25472\\Desktop\\LaundryManagementSystemProject\\backend\\LaundryManagement.API\\LaundryManagement.API.csproj",
         "projectName": "LaundryManagement.API",
-        "projectPath": "D:\\Users\\Erick\\Code\\laundry-management-system\\backend\\LaundryManagement.API\\LaundryManagement.API.csproj",
-        "packagesPath": "C:\\Users\\Erick\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\Erick\\Code\\laundry-management-system\\backend\\LaundryManagement.API\\obj\\",
+        "projectPath": "C:\\Users\\25472\\Desktop\\LaundryManagementSystemProject\\backend\\LaundryManagement.API\\LaundryManagement.API.csproj",
+        "packagesPath": "C:\\Users\\25472\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\25472\\Desktop\\LaundryManagementSystemProject\\backend\\LaundryManagement.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Erick\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\25472\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -37,7 +37,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -89,6 +90,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.17, 8.0.17]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.17, 8.0.17]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.17, 8.0.17]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.17, 8.0.17]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -97,7 +116,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
