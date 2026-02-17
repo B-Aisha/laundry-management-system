@@ -1,25 +1,50 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../../api/axios";
 import "./Auth.css";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    phone: "",
     password: "",
+    confirmPassword: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Signup data:", formData);
-    alert(
-      "Account created. Awaiting manager approval before access is granted."
-    );
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      await api.post("/auth/register", {
+        fullName: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+      });
+
+      alert("Account created successfully. Please log in.");
+      navigate("/auth/login");
+
+    } catch (err) {
+      alert(err.response?.data || "Registration failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -34,7 +59,6 @@ const Signup = () => {
             <input
               type="text"
               name="fullName"
-              placeholder="Enter your full name"
               value={formData.fullName}
               onChange={handleChange}
               required
@@ -46,50 +70,43 @@ const Signup = () => {
             <input
               type="email"
               name="email"
-              placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
               required
             />
           </div>
 
-          <div>
-            <label>Phone Number</label>
-            <input
-              type="text"
-              name="phone"
-              placeholder="Enter phone number"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-            />
-          </div>
 
           <div>
             <label>Password</label>
             <input
               type="password"
               name="password"
-              placeholder="Create a password"
               value={formData.password}
               onChange={handleChange}
               required
             />
           </div>
 
-          <button type="submit" className="auth-btn">
-            Sign Up
+          <div>
+            <label>Confirm Password</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button className="auth-btn" type="submit" disabled={loading}>
+            {loading ? "Creating account..." : "Sign Up"}
           </button>
         </form>
 
-        <div className="notice">
-          <strong>Important:</strong> After registration, your account must be
-          approved by the laundry manager before you can log in.
-        </div>
-
         <div className="auth-footer">
           <p>
-            Already have an account? <a href="/auth/login">Login</a>
+            Already have an account? <Link to="/auth/login">Login</Link>
           </p>
         </div>
       </div>
