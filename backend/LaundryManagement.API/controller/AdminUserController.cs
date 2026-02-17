@@ -42,6 +42,17 @@ namespace LaundryManagement.API.controllers
             return Ok(result);
         }
 
+        // DELETE: api/admin/users/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null) return NotFound();
+
+            await _userManager.DeleteAsync(user);
+            return Ok("User deleted");
+        }
+
        
 
         
