@@ -1,4 +1,4 @@
-@LaundryManagement.API_HostAddress = http://localhost:5014
+@LaundryManagement.API_HostAddress =https://localhost:7014 http://localhost:5014
 
 GET {{LaundryManagement.API_HostAddress}}/weatherforecast/
 Accept: application/json
