@@ -53,8 +53,26 @@ namespace LaundryManagement.API.controllers
             return Ok("User deleted");
         }
 
-       
 
-        
+         // PUT: api/admin/users/{id}/role
+        [HttpPut("{id}/role")]
+        public async Task<IActionResult> UpdateUserRole(string id, [FromBody] string role)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null) return NotFound();
+
+            var currentRoles = await _userManager.GetRolesAsync(user);
+
+            await _userManager.RemoveFromRolesAsync(user, currentRoles);
+            await _userManager.AddToRoleAsync(user, role);
+
+            user.UserType = role;
+            await _userManager.UpdateAsync(user);
+
+            return Ok("Role updated");
+        }
+
+
+            
     }
 }
