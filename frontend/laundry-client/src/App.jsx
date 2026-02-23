@@ -5,6 +5,9 @@ import Signup from "./pages/auth/Signup";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminHome from "./pages/admin/AdminHome";
 import Users from "./pages/admin/Users";
+import Staff from "./pages/admin/Staff";
+
+
 import StaffDashboard from "./pages/staff/StaffDashboard";
 import CustomerDashboard from "./pages/customer/CustomerDashboard";
 
@@ -20,6 +23,7 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />}>
           <Route index element={<AdminHome />} />
           <Route path="users" element={<Users />} />
+          <Route path="staff" element={<Staff />} />
         </Route>
 
         <Route path="/staff" element={<StaffDashboard />} />

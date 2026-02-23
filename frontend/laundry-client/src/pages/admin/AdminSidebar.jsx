@@ -20,6 +20,13 @@ const AdminSidebar = ({ isOpen }) => {
         </li>
 
         <li>
+          <Link to="/admin/staff">
+            <span className="icon">🧑‍💼</span>
+            {isOpen && <span className="label">Manage Staff</span>}
+        </Link>
+        </li>
+
+        <li>
           <span className="icon">🧺</span>
           {isOpen && <span className="label">Orders</span>}
         </li>

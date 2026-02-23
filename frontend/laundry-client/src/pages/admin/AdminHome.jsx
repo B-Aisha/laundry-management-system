@@ -7,18 +7,20 @@ const AdminHome = () => {
       <h2>Admin Dashboard</h2>
 
       <div className="card-grid">
-
+        
         <Link to="/admin/users" className="dashboard-card">
       <div className="card-icon">👥</div>
       <h3>Manage Users</h3>
       <p>View and manage all system users</p>
     </Link>
 
-    <div className="dashboard-card">
+        <Link to="/admin/staff" className="dashboard-card">
       <div className="card-icon">🧑‍💼</div>
       <h3>Manage Staff</h3>
-      <p>Control staff accounts</p>
-    </div>
+      <p>View and manage staff accounts</p>
+    </Link>
+
+    
 
     <div className="dashboard-card">
       <div className="card-icon">🧺</div>
