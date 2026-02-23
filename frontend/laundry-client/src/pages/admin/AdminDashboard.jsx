@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
 import AdminNavbar from "./AdminNavbar";
 import AdminSidebar from "./AdminSidebar";
-import AdminHome from "./AdminHome";
 import "./admin.css";
 
 const AdminDashboard = () => {
@@ -22,7 +22,7 @@ const AdminDashboard = () => {
             ☰
           </button>
 
-          <AdminHome />
+          <Outlet /> {/* 👈 THIS IS IMPORTANT */}
         </div>
       </div>
     </div>

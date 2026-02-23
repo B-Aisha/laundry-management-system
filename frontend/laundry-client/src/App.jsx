@@ -3,6 +3,8 @@ import HomePage from "./pages/HomePage";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminHome from "./pages/admin/AdminHome";
+import Users from "./pages/admin/Users";
 import StaffDashboard from "./pages/staff/StaffDashboard";
 import CustomerDashboard from "./pages/customer/CustomerDashboard";
 
@@ -13,7 +15,13 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/signup" element={<Signup />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminDashboard />}>
+          <Route index element={<AdminHome />} />
+          <Route path="users" element={<Users />} />
+        </Route>
+
         <Route path="/staff" element={<StaffDashboard />} />
         <Route path="/customer" element={<CustomerDashboard />} />
       </Routes>

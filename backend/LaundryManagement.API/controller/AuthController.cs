@@ -55,7 +55,7 @@ namespace LaundryManagement.API.Controllers
             return Ok("User registered successfully.");
         }
 
-        // ---------------- LOGIN ----------------
+        // ---------------- LOGIN ---
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
