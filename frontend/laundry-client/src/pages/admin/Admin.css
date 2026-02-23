@@ -204,3 +204,47 @@
 .delete-btn:hover {
   background: #b71c1c;
 }
+
+.form-container {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.form-container input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.staff-container {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.table-header {
+  display: flex;
+  justify-content: flex-end; /* aligns left */
+  margin-bottom: 15px;
+}
+
+.add-btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.add-btn:hover {
+  background-color: #1e4fd8;
+}

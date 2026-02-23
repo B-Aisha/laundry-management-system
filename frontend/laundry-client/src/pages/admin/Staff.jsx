@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
+import { Link } from "react-router-dom";
 
 const Staff = () => {
   const [staff, setStaff] = useState([]);
@@ -29,8 +30,13 @@ const Staff = () => {
   if (loading) return <p>Loading staff...</p>;
 
   return (
-    <div className="admin-content">
+    <div className="staff-container">
       <h2>Manage Staff Accounts</h2>
+      <div className="table-header">
+        <Link to="/admin/create-staff" className="add-btn">
+        + Add Staff
+        </Link>
+      </div>
 
       <table className="users-table">
         <thead>

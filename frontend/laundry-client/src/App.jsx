@@ -6,6 +6,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminHome from "./pages/admin/AdminHome";
 import Users from "./pages/admin/Users";
 import Staff from "./pages/admin/Staff";
+import CreateStaff from "./pages/admin/CreateStaff";
 
 
 import StaffDashboard from "./pages/staff/StaffDashboard";
@@ -24,6 +25,7 @@ function App() {
           <Route index element={<AdminHome />} />
           <Route path="users" element={<Users />} />
           <Route path="staff" element={<Staff />} />
+          <Route path="create-staff" element={<CreateStaff />} />
         </Route>
 
         <Route path="/staff" element={<StaffDashboard />} />
