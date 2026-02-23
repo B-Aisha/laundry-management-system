@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const AdminHome = () => {
   return (
@@ -6,11 +7,38 @@ const AdminHome = () => {
       <h2>Admin Dashboard</h2>
 
       <div className="card-grid">
-        <div className="dashboard-card">Manage Users</div>
-        <div className="dashboard-card">Manage Staff</div>
-        <div className="dashboard-card">Laundry Orders</div>
-        <div className="dashboard-card">Services & Pricing</div>
-        <div className="dashboard-card">Reports</div>
+
+        <Link to="/admin/users" className="dashboard-card">
+      <div className="card-icon">👥</div>
+      <h3>Manage Users</h3>
+      <p>View and manage all system users</p>
+    </Link>
+
+    <div className="dashboard-card">
+      <div className="card-icon">🧑‍💼</div>
+      <h3>Manage Staff</h3>
+      <p>Control staff accounts</p>
+    </div>
+
+    <div className="dashboard-card">
+      <div className="card-icon">🧺</div>
+      <h3>Laundry Orders</h3>
+      <p>Track and manage orders</p>
+    </div>
+
+    <div className="dashboard-card">
+      <div className="card-icon">⚙️</div>
+      <h3>Services & Pricing</h3>
+      <p>Edit services and prices</p>
+    </div>
+
+    <div className="dashboard-card">
+      <div className="card-icon">📊</div>
+      <h3>Reports</h3>
+      <p>View business analytics</p>
+    </div>
+
+
       </div>
     </div>
   );
