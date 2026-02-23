@@ -72,6 +72,31 @@ namespace LaundryManagement.API.controllers
             return Ok("Role updated");
         }
 
+        // POST: api/admin/users/create-staff
+        [HttpPost("create-staff")]
+        public async Task<IActionResult> CreateStaff([FromBody] CreateStaffDto model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = new ApplicationUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                FullName = model.FullName,
+                UserType = "Staff"
+            };
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            await _userManager.AddToRoleAsync(user, "Staff");
+
+            return Ok("Staff account created successfully");
+        }
+
 
             
     }

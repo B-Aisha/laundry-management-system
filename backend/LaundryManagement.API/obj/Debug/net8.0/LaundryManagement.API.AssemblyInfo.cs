@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LaundryManagement.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4e4202fa1c9ee6c079eaebd2e63fff63198db157")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+94c81a25d1c43d8658ec7c2cc7f44a7c49a848e0")]
 [assembly: System.Reflection.AssemblyProductAttribute("LaundryManagement.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LaundryManagement.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
