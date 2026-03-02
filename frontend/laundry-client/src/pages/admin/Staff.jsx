@@ -14,18 +14,35 @@ const Staff = () => {
       const staffUsers = response.data.filter(
         (user) => user.userType === "Staff"
       );
-
       setStaff(staffUsers);
     } catch (error) {
       console.error("Error fetching staff:", error);
-    } finally {
-      setLoading(false);
+    }
+    finally {
+    setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchStaff();
+  fetchStaff();
   }, []);
+
+  const toggleActive = async (id) => {
+  try {
+    const response = await api.put(`/admin/users/${id}/toggle-active`);
+
+    setStaff((prevStaff) =>
+      prevStaff.map((user) =>
+        user.id === id
+          ? { ...user, isActive: response.data.isActive }
+          : user
+      )
+    );
+  } catch (error) {
+    console.error(error);
+    alert("Failed to update status");
+  }
+};
 
   if (loading) return <p>Loading staff...</p>;
 
@@ -44,6 +61,8 @@ const Staff = () => {
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -53,6 +72,22 @@ const Staff = () => {
               <td>{user.fullName}</td>
               <td>{user.email}</td>
               <td>{user.userType}</td>
+              <td>
+                {user.isActive ? (
+                    <span className="active-badge">Active</span>
+                ) : (
+                    <span className="inactive-badge">Inactive</span>
+                )}
+                </td>
+
+                <td>
+                <button
+                    onClick={() => toggleActive(user.id)}
+                    className="toggle-btn"
+                >
+                    {user.isActive ? "Deactivate" : "Activate"}
+                </button>
+                </td>
             </tr>
           ))}
         </tbody>

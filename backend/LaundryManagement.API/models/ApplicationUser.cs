@@ -11,6 +11,8 @@ namespace LaundryManagement.API.models
 
         public string? Address { get; set; }
 
+        public bool IsActive { get; set; } = true;
+
         // Prefer using Identity Roles, but keeping for flexibility
         public string UserType { get; set; } = "Customer";
         // Audit

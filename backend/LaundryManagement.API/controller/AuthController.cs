@@ -41,7 +41,9 @@ namespace LaundryManagement.API.Controllers
                 Email = dto.Email,
                 UserName = dto.Email,
                 UserType = "Customer",
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                IsActive = true
+
             };
 
             var result = await _userManager.CreateAsync(user, dto.Password);
@@ -61,7 +63,15 @@ namespace LaundryManagement.API.Controllers
         {
             var user = await _userManager.FindByEmailAsync(dto.Email);
 
-            if (user == null || !await _userManager.CheckPasswordAsync(user, dto.Password))
+            if (user == null)
+                return Unauthorized("Invalid credentials.");
+
+            if (!user.IsActive)
+                return Unauthorized("Account is deactivated. Contact admin.");
+
+            var passwordValid = await _userManager.CheckPasswordAsync(user, dto.Password);
+
+            if (!passwordValid)
                 return Unauthorized("Invalid credentials.");
 
             var roles = await _userManager.GetRolesAsync(user);
@@ -96,7 +106,8 @@ namespace LaundryManagement.API.Controllers
                     user.Id,
                     user.FullName,
                     user.Email,
-                    Roles = roles
+                    Roles = roles,
+                    user.IsActive
                 }
             });
         }

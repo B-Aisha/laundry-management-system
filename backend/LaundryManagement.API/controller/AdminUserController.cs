@@ -35,7 +35,8 @@ namespace LaundryManagement.API.controllers
                     user.FullName,
                     user.Email,
                     user.UserType,
-                    Roles = roles
+                    Roles = roles,
+                    user.IsActive
                 });
             }
 
@@ -95,6 +96,22 @@ namespace LaundryManagement.API.controllers
             await _userManager.AddToRoleAsync(user, "Staff");
 
             return Ok("Staff account created successfully");
+        }
+
+        //[Authorize(Roles = "Admin")]
+        [HttpPut("{id}/toggle-active")]
+        public async Task<IActionResult> ToggleActive(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+                return NotFound();
+
+            user.IsActive = !user.IsActive;
+
+            await _userManager.UpdateAsync(user);
+
+            return Ok(new { user.IsActive });
         }
 
 
