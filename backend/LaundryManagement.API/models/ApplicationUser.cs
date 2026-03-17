@@ -20,5 +20,7 @@ namespace LaundryManagement.API.models
 
         // Navigation Properties
         public ICollection<Order> Orders { get; set; } = new List<Order>();
+        public Customer? Customer { get; set; } 
+        public Staff? Staff { get; set; }    
     }
 }

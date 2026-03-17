@@ -1,10 +1,12 @@
+using System;
+
 namespace LaundryManagement.API.models
 {
-    public class Customer
+    public class Staff
     {
         public int Id { get; set; }
-        public string? Phone { get; set; }
-        public string? Address { get; set; }
+        public string? Position { get; set; }
+        public DateTime HiredAt { get; set; } = DateTime.UtcNow;
 
         // Link to ApplicationUser
         public string ApplicationUserId { get; set; } = null!;
