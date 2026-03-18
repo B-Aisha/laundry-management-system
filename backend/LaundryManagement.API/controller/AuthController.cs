@@ -62,7 +62,9 @@ namespace LaundryManagement.API.Controllers
         {
             ApplicationUserId = user.Id,
             
-            Phone = dto.Phone ?? ""
+            Phone = dto.Phone ?? "",
+            FullName = user.FullName,
+            Email = user.Email
         };
 
         _context.Customers.Add(customer);

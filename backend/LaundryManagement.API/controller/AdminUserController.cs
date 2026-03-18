@@ -91,7 +91,10 @@ namespace LaundryManagement.API.controllers
             _context.Customers.Add(new Customer
             {
                 ApplicationUserId = user.Id,
-                Phone = ""
+                Phone = "",
+                FullName = user.FullName,
+                Email = user.Email
+
             });
         }
         else if (role == "Staff")
@@ -99,7 +102,9 @@ namespace LaundryManagement.API.controllers
             _context.Staffs.Add(new Staff
             {
                 ApplicationUserId = user.Id,
-                Position = "General"
+                Position = "General",
+                FullName = user.FullName,
+                Email = user.Email
             });
         }
 
@@ -135,7 +140,10 @@ namespace LaundryManagement.API.controllers
             var staff = new Staff
         {
             ApplicationUserId = user.Id,
-            Position = model.Position ?? "General"
+            Position = model.Position ?? "General",
+            FullName = model.FullName,
+            Email = model.Email
+
         };
 
         _context.Staffs.Add(staff);
