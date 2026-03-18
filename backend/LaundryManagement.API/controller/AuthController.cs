@@ -7,6 +7,8 @@ using System.Text;
 using LaundryManagement.API.models;
 using LaundryManagement.API.data;
 using LaundryManagement.API.DTOs.Auth;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace LaundryManagement.API.Controllers
 {
@@ -95,6 +97,7 @@ namespace LaundryManagement.API.Controllers
 
             var claims = new List<Claim>
             {
+                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email!),
                 new Claim(ClaimTypes.Name, user.FullName ?? ""),
@@ -115,18 +118,27 @@ namespace LaundryManagement.API.Controllers
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
             );
 
-            return Ok(new
+         // Fetch the CustomerId linked to this ApplicationUser
+        var customer = await _context.Customers
+            .FirstOrDefaultAsync(c => c.ApplicationUserId == user.Id);
+
+        return Ok(new
+        {
+            token = new JwtSecurityTokenHandler().WriteToken(token),
+            customerId = customer?.CustomerId,  // <-- NEW
+            user = new
             {
-                token = new JwtSecurityTokenHandler().WriteToken(token),
-                user = new
-                {
-                    user.Id,
-                    user.FullName,
-                    user.Email,
-                    Roles = roles,
-                    user.IsActive
-                }
-            });
+                user.Id,
+                user.FullName,
+                user.Email,
+                Roles = roles,
+                user.IsActive
+            }
+        });   
+
+
+
+
         }
     }
 }
