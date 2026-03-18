@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using LaundryManagement.API.models;
+using LaundryManagement.API.data;
+using Microsoft.EntityFrameworkCore;
 
 namespace LaundryManagement.API.controllers
 {
@@ -11,10 +13,14 @@ namespace LaundryManagement.API.controllers
     public class AdminUserController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
+         private readonly LaundryDbContext _context;
 
-        public AdminUserController(UserManager<ApplicationUser> userManager)
+        public AdminUserController(
+            UserManager<ApplicationUser> userManager,
+            LaundryDbContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
 
         // GET: api/admin/users
@@ -70,6 +76,36 @@ namespace LaundryManagement.API.controllers
             user.UserType = role;
             await _userManager.UpdateAsync(user);
 
+            // ✅ remove from previous role table
+        var existingCustomer = await _context.Customers.FirstOrDefaultAsync(c => c.ApplicationUserId == id);
+        if (existingCustomer != null)
+            _context.Customers.Remove(existingCustomer);
+
+        var existingStaff = await _context.Staffs.FirstOrDefaultAsync(s => s.ApplicationUserId == id);
+        if (existingStaff != null)
+            _context.Staffs.Remove(existingStaff);
+
+        // ✅ add to new role table
+        if (role == "Customer")
+        {
+            _context.Customers.Add(new Customer
+            {
+                ApplicationUserId = user.Id,
+                Phone = ""
+            });
+        }
+        else if (role == "Staff")
+        {
+            _context.Staffs.Add(new Staff
+            {
+                ApplicationUserId = user.Id,
+                Position = "General"
+            });
+        }
+
+        await _context.SaveChangesAsync();
+
+
             return Ok("Role updated");
         }
 
@@ -85,7 +121,8 @@ namespace LaundryManagement.API.controllers
                 UserName = model.Email,
                 Email = model.Email,
                 FullName = model.FullName,
-                UserType = "Staff"
+                UserType = "Staff",
+                IsActive = true
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -94,6 +131,16 @@ namespace LaundryManagement.API.controllers
                 return BadRequest(result.Errors);
 
             await _userManager.AddToRoleAsync(user, "Staff");
+
+            var staff = new Staff
+        {
+            ApplicationUserId = user.Id,
+            Position = model.Position ?? "General"
+        };
+
+        _context.Staffs.Add(staff);
+        await _context.SaveChangesAsync();
+
 
             return Ok("Staff account created successfully");
         }

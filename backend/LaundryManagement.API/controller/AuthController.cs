@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using LaundryManagement.API.models;
+using LaundryManagement.API.data;
 using LaundryManagement.API.DTOs.Auth;
 
 namespace LaundryManagement.API.Controllers
@@ -15,13 +16,16 @@ namespace LaundryManagement.API.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
+         private readonly LaundryDbContext _context;
 
         public AuthController(
             UserManager<ApplicationUser> userManager,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            LaundryDbContext context)
         {
             _userManager = userManager;
             _configuration = configuration;
+             _context = context;
         }
 
         // ---------------- REGISTER ----------------
@@ -53,6 +57,17 @@ namespace LaundryManagement.API.Controllers
 
             // Assign default role
             await _userManager.AddToRoleAsync(user, "Customer");
+
+             var customer = new Customer
+        {
+            ApplicationUserId = user.Id,
+            
+            Phone = dto.Phone ?? ""
+        };
+
+        _context.Customers.Add(customer);
+        await _context.SaveChangesAsync();
+
 
             return Ok("User registered successfully.");
         }

@@ -12,8 +12,8 @@ namespace LaundryManagement.API.data
         }
 
         public DbSet<Order> Orders => Set<Order>();
-        public DbSet<Customer> Customer => Set<Customer>(); // ✅ added
-        public DbSet<Staff> Staff => Set<Staff>();          // ✅ added
+        public DbSet<Customer> Customers => Set<Customer>(); 
+        public DbSet<Staff> Staffs => Set<Staff>();         
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
