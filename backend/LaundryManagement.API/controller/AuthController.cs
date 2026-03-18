@@ -122,10 +122,15 @@ namespace LaundryManagement.API.Controllers
         var customer = await _context.Customers
             .FirstOrDefaultAsync(c => c.ApplicationUserId == user.Id);
 
+        var staff = await _context.Staffs
+    .FirstOrDefaultAsync(s => s.ApplicationUserId == user.Id);
+
+
         return Ok(new
         {
             token = new JwtSecurityTokenHandler().WriteToken(token),
-            customerId = customer?.CustomerId,  // <-- NEW
+            customerId = customer?.CustomerId, 
+            staffId = staff?.StaffId, 
             user = new
             {
                 user.Id,

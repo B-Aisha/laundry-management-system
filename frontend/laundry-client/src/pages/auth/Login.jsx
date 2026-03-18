@@ -23,12 +23,13 @@ const Login = () => {
         password,
       });
 
-      const { token, user, customerId } = res.data;
+      const { token, user, customerId, staffId } = res.data;
 
       // Save auth details
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("customerId", customerId);
+      localStorage.setItem("staffId", staffId);
 
       // 🔁 Role-based redirect
       const role = user.roles?.[0];
