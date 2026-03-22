@@ -28,11 +28,11 @@ const AdminHome = () => {
       <p>Track and manage orders</p>
     </Link>
 
-    <div className="dashboard-card">
+    <Link to="/admin/services" className="dashboard-card">
       <div className="card-icon">⚙️</div>
       <h3>Services & Pricing</h3>
       <p>Edit services and prices</p>
-    </div>
+    </Link>
 
     <div className="dashboard-card">
       <div className="card-icon">📊</div>
