@@ -10,27 +10,61 @@ const statusColors = {
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
+  const [staff, setStaff] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [expandedOrderId, setExpandedOrderId] = useState(null);
   const [filterStatus, setFilterStatus] = useState("All");
+  const [assigning, setAssigning] = useState(null); // orderId being assigned
 
   useEffect(() => {
-    const fetchOrders = async () => {
+    const fetchData = async () => {
       try {
-        const res = await api.get("/orders");
-        setOrders(res.data);
+        const [ordersRes, staffRes] = await Promise.all([
+          api.get("/orders"),
+          api.get("/staff"),
+        ]);
+        setOrders(ordersRes.data);
+        setStaff(staffRes.data);
       } catch (err) {
-        setError("Failed to load orders.");
+        setError("Failed to load data.");
       } finally {
         setLoading(false);
       }
     };
-    fetchOrders();
+    fetchData();
   }, []);
 
   const toggleExpand = (orderId) => {
     setExpandedOrderId((prev) => (prev === orderId ? null : orderId));
+  };
+
+  const handleAssignStaff = async (orderId, staffId) => {
+    if (!staffId) return;
+    try {
+      setAssigning(orderId);
+      const res = await api.put(`/orders/${orderId}/assign/${staffId}`);
+
+      // Update the order in state
+      setOrders((prev) =>
+        prev.map((o) =>
+          o.orderId === orderId
+            ? {
+                ...o,
+                status: res.data.status,
+                assignedStaff: {
+                  staffId: res.data.assignedStaffId,
+                  fullName: res.data.assignedStaffName,
+                },
+              }
+            : o
+        )
+      );
+    } catch (err) {
+      alert("Failed to assign staff. Please try again.");
+    } finally {
+      setAssigning(null);
+    }
   };
 
   const filteredOrders =
@@ -182,12 +216,39 @@ const AdminOrders = () => {
                       <span>KES {order.totalPrice?.toFixed(2)}</span>
                     </div>
 
-                    {/* Assigned Staff */}
-                    <div style={{ marginTop: "12px", fontSize: "14px", color: "#555" }}>
-                      👷 <strong>Assigned Staff:</strong>{" "}
-                      {order.assignedStaff ? order.assignedStaff.fullName : (
-                        <span style={{ color: "#f59e0b" }}>Not assigned yet</span>
-                      )}
+                    {/* Assign Staff */}
+                    <div style={{ marginTop: "16px" }}>
+                      <h5 style={{ marginBottom: "8px" }}>
+                        👷 Assign Staff
+                        {order.assignedStaff && (
+                          <span style={{ fontWeight: "400", color: "#22c55e", marginLeft: "8px", fontSize: "13px" }}>
+                            — Currently: {order.assignedStaff.fullName}
+                          </span>
+                        )}
+                      </h5>
+                      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                        <select
+                          defaultValue={order.assignedStaff?.staffId || ""}
+                          style={{
+                            padding: "8px 12px",
+                            borderRadius: "6px",
+                            border: "1px solid #ccc",
+                            fontSize: "14px",
+                            flex: 1,
+                          }}
+                          onChange={(e) => handleAssignStaff(order.orderId, e.target.value)}
+                        >
+                          <option value="">-- Select Staff --</option>
+                          {staff.map((s) => (
+                            <option key={s.staffId} value={s.staffId}>
+                              {s.fullName} — {s.position}
+                            </option>
+                          ))}
+                        </select>
+                        {assigning === order.orderId && (
+                          <span style={{ fontSize: "13px", color: "#888" }}>Assigning...</span>
+                        )}
+                      </div>
                     </div>
 
                     {/* Notes */}

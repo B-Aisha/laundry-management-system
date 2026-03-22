@@ -8,7 +8,7 @@ namespace LaundryManagement.API.Controllers
 {
     [ApiController]
     [Route("api/staff")]
-    [Authorize]
+    //[Authorize]
     public class StaffController : ControllerBase
     {
         private readonly LaundryDbContext _context;
@@ -38,5 +38,29 @@ namespace LaundryManagement.API.Controllers
 
             return Ok(staff);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllStaff()
+        {
+            var staff = await _context.Staffs
+                .Select(s => new
+                {
+                    s.StaffId,
+                    s.FullName,
+                    s.Email,
+                    s.Position
+                })
+                .ToListAsync();
+
+            return Ok(staff);
+        }
+
+
+
+
+
+
+
     }
 }
