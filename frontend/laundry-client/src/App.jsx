@@ -13,6 +13,7 @@ import StaffDashboard from "./pages/staff/StaffDashboard";
 import CustomerDashboard from "./pages/customer/CustomerDashboard";
 import NewOrder from "./pages/customer/NewOrder";
 import CustomerHome from "./pages/customer/CustomerHome";
+import MyOrders from "./pages/customer/MyOrders";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/customer" element={<CustomerDashboard />}>
         <Route index element={<CustomerHome />} />
         <Route path="new-order" element={<NewOrder />} />
+        <Route path="orders" element={<MyOrders />} />
       </Route>
 
 

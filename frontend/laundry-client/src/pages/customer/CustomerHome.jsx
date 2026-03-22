@@ -37,17 +37,27 @@ const CustomerHome = () => {
           <p>Place a new laundry request easily</p>
         </div>
 
-        <div className="dashboard-card">
+        <div
+          className="dashboard-card"
+          onClick={() => navigate("/customer/orders")}
+          style={{ cursor: "pointer" }}
+        >
           <div className="card-icon">📦</div>
           <h4>Track Laundry</h4>
           <p>Check the current status of your items</p>
         </div>
 
-        <div className="dashboard-card">
+
+        <div
+          className="dashboard-card"
+          onClick={() => navigate("/customer/orders")}
+          style={{ cursor: "pointer" }}
+        >
           <div className="card-icon">📜</div>
           <h4>Order History</h4>
           <p>View previous laundry orders</p>
         </div>
+
 
         <div className="dashboard-card">
           <div className="card-icon">🔔</div>

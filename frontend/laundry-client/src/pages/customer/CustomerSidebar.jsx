@@ -16,11 +16,15 @@ const CustomerSidebar = ({ isOpen }) => {
             {isOpen && <span className="label">New Order</span>}
           </Link>
         </li>
-        
+    
         <li>
-          <span className="icon">📦</span>
-          {isOpen && <span className="label">My Orders</span>}
+          <Link to="/customer/orders" className="sidebar-link">
+            <span className="icon">📦</span>
+            {isOpen && <span className="label">My Orders</span>}
+          </Link>
         </li>
+
+        
         <li>
           <span className="icon">🔔</span>
           {isOpen && <span className="label">Notifications</span>}

@@ -5,11 +5,10 @@ const CustomerNavbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Remove token
     localStorage.removeItem("token");
-
-    // Optional: remove stored user info
     localStorage.removeItem("user");
+    localStorage.removeItem("customerId");
+    
 
     // Redirect to login
     navigate("/auth/login");
@@ -17,7 +16,9 @@ const CustomerNavbar = () => {
   return (
     <div className="customer-navbar">
       <h3>Laundry Services</h3>
-      <button className="logout-btn">Sign Out</button>
+      <button className="logout-btn" onClick={handleLogout}>
+        Sign Out
+      </button>
     </div>
   );
 };

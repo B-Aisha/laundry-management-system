@@ -178,3 +178,24 @@
   text-decoration: none;
   color: inherit;
 }
+
+
+.auth-success {
+  background: #e8f5e9;
+  color: #22c55e;
+  border: 1px solid #22c55e;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.auth-error {
+  background: #fdecea;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}

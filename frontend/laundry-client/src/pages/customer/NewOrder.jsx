@@ -84,7 +84,7 @@ const NewOrder = () => {
       setNotes("");
 
       // Redirect to orders list after 2 seconds
-      setTimeout(() => navigate("/customer"), 2000);// redirect to customer/orders after making that page
+      setTimeout(() => navigate("/customer/orders"), 2000);// redirect to customer/orders after making that page
     } catch (err) {
         setError(
   typeof err.response?.data === "string"
