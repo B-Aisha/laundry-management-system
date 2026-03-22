@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CustomerSidebar = ({ isOpen }) => {
   return (
@@ -8,10 +9,14 @@ const CustomerSidebar = ({ isOpen }) => {
           <span className="icon">🏠</span>
           {isOpen && <span className="label">Dashboard</span>}
         </li>
+
         <li>
-          <span className="icon">➕</span>
-          {isOpen && <span className="label">New Order</span>}
+          <Link to="/customer/new-order" className="sidebar-link">
+            <span className="icon">➕</span>
+            {isOpen && <span className="label">New Order</span>}
+          </Link>
         </li>
+        
         <li>
           <span className="icon">📦</span>
           {isOpen && <span className="label">My Orders</span>}

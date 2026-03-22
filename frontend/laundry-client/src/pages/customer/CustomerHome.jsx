@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import api from "../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const CustomerHome = () => {
   const [customerName, setCustomerName] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCustomer = async () => {
@@ -26,8 +27,11 @@ const CustomerHome = () => {
       <h2>Welcome Back {customerName ? `, ${customerName} 👋` : "👋"}</h2>
       <p>Your laundry is in good hands. Manage your laundry orders easily from here.</p>
 
-      <div className="card-grid">
-        <div className="dashboard-card accent">
+        <div
+          className="dashboard-card accent"
+          onClick={() => navigate("/customer/new-order")}
+          style={{ cursor: "pointer" }}
+        >
           <div className="card-icon">🧺</div>
           <h4>New Order</h4>
           <p>Place a new laundry request easily</p>
@@ -50,8 +54,8 @@ const CustomerHome = () => {
           <h4>Notifications</h4>
           <p>Stay updated on your laundry progress</p>
         </div>
-      </div>
     </div>
+    
   );
 };
 

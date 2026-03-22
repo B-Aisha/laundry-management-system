@@ -3,6 +3,7 @@ import CustomerNavbar from "./CustomerNavbar";
 import CustomerSidebar from "./CustomerSidebar";
 import CustomerHome from "./CustomerHome";
 import "./customer.css";
+import { Outlet } from "react-router-dom";
 
 const CustomerDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -22,7 +23,8 @@ const CustomerDashboard = () => {
             ☰
           </button>
 
-          <CustomerHome />
+          <Outlet /> 
+
         </div>
       </div>
     </div>

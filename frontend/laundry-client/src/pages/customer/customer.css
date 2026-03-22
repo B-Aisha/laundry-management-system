@@ -170,3 +170,11 @@
   position: relative;
   overflow: hidden;
 }
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
