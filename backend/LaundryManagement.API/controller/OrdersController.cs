@@ -118,6 +118,77 @@ namespace LaundryManagement.API.Controllers
         }
 
 
+        // GET api/orders
+        [HttpGet]
+        public async Task<IActionResult> GetAllOrders()
+        {
+            var orders = await _context.Orders
+                .Include(o => o.Customer)
+                .Include(o => o.AssignedStaff)
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Service)
+                .OrderByDescending(o => o.CreatedAt)
+                .Select(o => new
+                {
+                    o.OrderId,
+                    o.Status,
+                    o.TotalPrice,
+                    o.Notes,
+                    o.CreatedAt,
+                    o.UpdatedAt,
+                    Customer = new
+                    {
+                        o.Customer.CustomerId,
+                        o.Customer.FullName,
+                        o.Customer.Email,
+                        o.Customer.Phone
+                    },
+                    AssignedStaff = o.AssignedStaff == null ? null : new
+                    {
+                        o.AssignedStaff.StaffId,
+                        o.AssignedStaff.FullName
+                    },
+                    Items = o.OrderItems.Select(oi => new
+                    {
+                        oi.OrderItemId,
+                        ServiceName = oi.Service.Name,
+                        oi.Quantity,
+                        oi.UnitPrice,
+                        Subtotal = oi.Quantity * oi.UnitPrice
+                    })
+                })
+                .ToListAsync();
+
+            return Ok(orders);
+        }
+
+        // PUT api/orders/{orderId}/assign/{staffId}
+        [HttpPut("{orderId}/assign/{staffId}")]
+        public async Task<IActionResult> AssignStaff(int orderId, int staffId)
+        {
+            var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+            if (order == null) return NotFound("Order not found.");
+
+            var staff = await _context.Staffs.FirstOrDefaultAsync(s => s.StaffId == staffId);
+            if (staff == null) return NotFound("Staff not found.");
+
+            order.AssignedStaffId = staffId;
+            order.Status = "Processing";
+            order.UpdatedAt = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                order.OrderId,
+                order.Status,
+                order.AssignedStaffId,
+                AssignedStaffName = staff.FullName,
+                order.UpdatedAt
+            });
+        }
+
+
 
 
 

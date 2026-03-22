@@ -6,8 +6,10 @@ const CustomerSidebar = ({ isOpen }) => {
     <div className={`customer-sidebar ${isOpen ? "open" : "closed"}`}>
       <ul>
         <li>
-          <span className="icon">🏠</span>
-          {isOpen && <span className="label">Dashboard</span>}
+          <Link to="/customer" className="sidebar-link">
+            <span className="icon">🏠</span>
+            {isOpen && <span className="label">Dashboard</span>}
+          </Link>
         </li>
 
         <li>

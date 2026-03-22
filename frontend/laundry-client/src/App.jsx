@@ -7,7 +7,7 @@ import AdminHome from "./pages/admin/AdminHome";
 import Users from "./pages/admin/Users";
 import Staff from "./pages/admin/Staff";
 import CreateStaff from "./pages/admin/CreateStaff";
-
+import AdminOrders from "./pages/admin/AdminOrders";
 
 import StaffDashboard from "./pages/staff/StaffDashboard";
 import CustomerDashboard from "./pages/customer/CustomerDashboard";
@@ -29,6 +29,7 @@ function App() {
           <Route path="users" element={<Users />} />
           <Route path="staff" element={<Staff />} />
           <Route path="create-staff" element={<CreateStaff />} />
+          <Route path="orders" element={<AdminOrders />} />
         </Route>
 
         <Route path="/staff" element={<StaffDashboard />} />

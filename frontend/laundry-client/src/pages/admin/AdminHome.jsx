@@ -22,11 +22,11 @@ const AdminHome = () => {
 
     
 
-    <div className="dashboard-card">
+    <Link to="/admin/orders" className="dashboard-card">
       <div className="card-icon">🧺</div>
       <h3>Laundry Orders</h3>
       <p>Track and manage orders</p>
-    </div>
+    </Link>
 
     <div className="dashboard-card">
       <div className="card-icon">⚙️</div>
