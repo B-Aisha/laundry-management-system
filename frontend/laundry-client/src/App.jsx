@@ -11,6 +11,10 @@ import AdminOrders from "./pages/admin/AdminOrders";
 import ManageServices from "./pages/admin/ManageServices";
 
 import StaffDashboard from "./pages/staff/StaffDashboard";
+import StaffHome from "./pages/staff/StaffHome";
+import StaffOrders from "./pages/staff/StaffOrders";
+
+
 import CustomerDashboard from "./pages/customer/CustomerDashboard";
 import NewOrder from "./pages/customer/NewOrder";
 import CustomerHome from "./pages/customer/CustomerHome";
@@ -34,7 +38,10 @@ function App() {
           <Route path="services" element={<ManageServices />} />
         </Route>
 
-        <Route path="/staff" element={<StaffDashboard />} />
+        <Route path="/staff" element={<StaffDashboard />}>
+          <Route index element={<StaffHome />} />
+          <Route path="orders" element={<StaffOrders />} />
+        </Route>
 
 
         <Route path="/customer" element={<CustomerDashboard />}>

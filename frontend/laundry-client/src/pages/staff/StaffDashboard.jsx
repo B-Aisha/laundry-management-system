@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
 import StaffNavbar from "./StaffNavbar";
 import StaffSidebar from "./StaffSidebar";
-import StaffHome from "./StaffHome";
 import "./staff.css";
 
 const StaffDashboard = () => {
@@ -22,7 +22,7 @@ const StaffDashboard = () => {
             ☰
           </button>
 
-          <StaffHome />
+          <Outlet />
         </div>
       </div>
     </div>

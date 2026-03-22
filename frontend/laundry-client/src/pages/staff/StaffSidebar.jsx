@@ -1,24 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const StaffSidebar = ({ isOpen }) => {
   return (
     <div className={`staff-sidebar ${isOpen ? "open" : "closed"}`}>
       <ul>
         <li>
-          <span className="icon">🏠</span>
-          {isOpen && <span className="label">Dashboard</span>}
+          <Link to="/staff" className="sidebar-link">
+            <span className="icon">🏠</span>
+            {isOpen && <span className="label">Dashboard</span>}
+          </Link>
         </li>
         <li>
-          <span className="icon">📦</span>
-          {isOpen && <span className="label">Receive Laundry</span>}
-        </li>
-        <li>
-          <span className="icon">🧼</span>
-          {isOpen && <span className="label">Processing</span>}
-        </li>
-        <li>
-          <span className="icon">✅</span>
-          {isOpen && <span className="label">Ready for Pickup</span>}
+          <Link to="/staff/orders" className="sidebar-link">
+            <span className="icon">📦</span>
+            {isOpen && <span className="label">My Orders</span>}
+          </Link>
         </li>
       </ul>
     </div>

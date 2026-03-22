@@ -188,6 +188,44 @@ namespace LaundryManagement.API.Controllers
             });
         }
 
+        // GET api/orders/staff/{staffId}
+        [HttpGet("staff/{staffId}")]
+        public async Task<IActionResult> GetOrdersByStaff(int staffId)
+        {
+            var orders = await _context.Orders
+                .Where(o => o.AssignedStaffId == staffId)
+                .Include(o => o.Customer)
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Service)
+                .OrderByDescending(o => o.CreatedAt)
+                .Select(o => new
+                {
+                    o.OrderId,
+                    o.Status,
+                    o.TotalPrice,
+                    o.Notes,
+                    o.CreatedAt,
+                    o.UpdatedAt,
+                    Customer = new
+                    {
+                        o.Customer.FullName,
+                        o.Customer.Email,
+                        o.Customer.Phone
+                    },
+                    Items = o.OrderItems.Select(oi => new
+                    {
+                        oi.OrderItemId,
+                        ServiceName = oi.Service.Name,
+                        oi.Quantity,
+                        oi.UnitPrice,
+                        Subtotal = oi.Quantity * oi.UnitPrice
+                    })
+                })
+                .ToListAsync();
+
+            return Ok(orders);
+        }
+
 
 
 
