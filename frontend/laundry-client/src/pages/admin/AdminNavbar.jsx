@@ -5,10 +5,7 @@ const AdminNavbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Remove token
     localStorage.removeItem("token");
-
-    // Optional: remove stored user info
     localStorage.removeItem("user");
 
     // Redirect to login
