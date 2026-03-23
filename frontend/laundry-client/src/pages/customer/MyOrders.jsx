@@ -34,6 +34,21 @@ const MyOrders = () => {
     setExpandedOrderId((prev) => (prev === orderId ? null : orderId));
   };
 
+  const handleCancel = async (orderId) => {
+    if (!window.confirm("Are you sure you want to cancel this order?")) return;
+
+    try {
+      await api.put(`/orders/${orderId}/status`, { status: "Cancelled" });
+      setOrders((prev) =>
+        prev.map((o) =>
+          o.orderId === orderId ? { ...o, status: "Cancelled" } : o
+        )
+      );
+    } catch (err) {
+      alert("Failed to cancel order. Please try again.");
+    }
+  };
+
   if (loading) return <div className="customer-content"><p>Loading orders...</p></div>;
   if (error) return <div className="customer-content"><p style={{ color: "red" }}>{error}</p></div>;
 
@@ -173,6 +188,30 @@ const MyOrders = () => {
                         📝 <strong>Note:</strong> {order.notes}
                       </div>
                     )}
+
+                    {/* Cancel button — only for Pending orders */}
+                    {order.status === "Pending" && (
+                      <div style={{ marginTop: "16px" }}>
+                        <button
+                          onClick={() => handleCancel(order.orderId)}
+                          style={{
+                            padding: "10px 24px",
+                            background: "#ef4444",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "6px",
+                            cursor: "pointer",
+                            fontWeight: "600",
+                            fontSize: "14px",
+                          }}
+                        >
+                          ❌ Cancel Order
+                        </button>
+                      </div>
+                    )}
+
+
+
                   </div>
                 )}
               </div>

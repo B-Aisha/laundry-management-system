@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LaundryManagement.API.data;
-using LaundryManagement.API.DTOs.Customer;
+using LaundryManagement.API.DTOs;
 
 namespace LaundryManagement.API.Controllers
 {
@@ -39,5 +39,33 @@ namespace LaundryManagement.API.Controllers
 
             return Ok(customer);
         }
+
+        // PUT api/customers/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] UpdateCustomerDto dto)
+        {
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == id);
+            if (customer == null)
+                return NotFound("Customer not found.");
+
+            customer.FullName = dto.FullName;
+            customer.Phone = dto.Phone;
+            customer.Address = dto.Address;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new CustomerDto
+            {
+                CustomerId = customer.CustomerId,
+                FullName = customer.FullName,
+                Email = customer.Email,
+                Phone = customer.Phone,
+                Address = customer.Address
+            });
+        }
+
+
+
+
     }
 }

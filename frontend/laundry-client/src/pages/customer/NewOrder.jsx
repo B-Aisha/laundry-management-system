@@ -35,6 +35,7 @@ const NewOrder = () => {
       }
     });
   };
+  
 
   // Update quantity for a selected service
   const handleQuantityChange = (serviceId, value) => {
