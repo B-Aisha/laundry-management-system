@@ -226,6 +226,25 @@ namespace LaundryManagement.API.Controllers
             return Ok(orders);
         }
 
+        // PUT api/orders/{orderId}/status
+        [HttpPut("{orderId}/status")]
+        public async Task<IActionResult> UpdateOrderStatus(int orderId, [FromBody] UpdateStatusDto dto)
+        {
+            var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+            if (order == null) return NotFound("Order not found.");
+
+            var allowed = new[] { "Processing", "Completed", "Cancelled" };
+            if (!allowed.Contains(dto.Status))
+                return BadRequest("Invalid status. Allowed values: Processing, Completed, Cancelled.");
+
+            order.Status = dto.Status;
+            order.UpdatedAt = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { order.OrderId, order.Status, order.UpdatedAt });
+        }
+
 
 
 

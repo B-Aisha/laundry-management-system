@@ -14,6 +14,7 @@ const StaffOrders = () => {
   const [error, setError] = useState("");
   const [expandedOrderId, setExpandedOrderId] = useState(null);
   const [filterStatus, setFilterStatus] = useState("All");
+  const [updating, setUpdating] = useState(null);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -32,6 +33,24 @@ const StaffOrders = () => {
 
   const toggleExpand = (orderId) => {
     setExpandedOrderId((prev) => (prev === orderId ? null : orderId));
+  };
+
+  const handleUpdateStatus = async (orderId, status) => {
+    try {
+      setUpdating(orderId);
+      await api.put(`/orders/${orderId}/status`, { status });
+
+      // Update order in state
+      setOrders((prev) =>
+        prev.map((o) =>
+          o.orderId === orderId ? { ...o, status } : o
+        )
+      );
+    } catch (err) {
+      alert("Failed to update order status. Please try again.");
+    } finally {
+      setUpdating(null);
+    }
   };
 
   const filteredOrders =
@@ -195,6 +214,50 @@ const StaffOrders = () => {
                         }}
                       >
                         📝 <strong>Note:</strong> {order.notes}
+                      </div>
+                    )}
+
+                    {/* Action Button — only show if not already Completed or Cancelled */}
+                    {order.status === "Processing" && (
+                      <div style={{ marginTop: "16px" }}>
+                        <button
+                          onClick={() => handleUpdateStatus(order.orderId, "Completed")}
+                          disabled={updating === order.orderId}
+                          style={{
+                            padding: "10px 24px",
+                            background: "#22c55e",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "6px",
+                            cursor: "pointer",
+                            fontWeight: "600",
+                            fontSize: "14px",
+                            opacity: updating === order.orderId ? 0.7 : 1,
+                          }}
+                        >
+                          {updating === order.orderId ? "Updating..." : "✅ Mark as Completed"}
+                        </button>
+
+                        <button
+                        onClick={() => handleUpdateStatus(order.orderId, "Cancelled")}
+                        disabled={updating === order.orderId}
+                        style={{
+                            padding: "10px 24px",
+                            background: "#ef4444",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "6px",
+                            cursor: "pointer",
+                            fontWeight: "600",
+                            fontSize: "14px",
+                            opacity: updating === order.orderId ? 0.7 : 1,
+                        }}
+                        >
+                        {updating === order.orderId ? "Updating..." : "❌ Cancel Order"}
+                        </button>
+
+
+
                       </div>
                     )}
                   </div>
