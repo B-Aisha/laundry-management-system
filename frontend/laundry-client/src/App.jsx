@@ -23,6 +23,7 @@ import NewOrder from "./pages/customer/NewOrder";
 import CustomerHome from "./pages/customer/CustomerHome";
 import MyOrders from "./pages/customer/MyOrders";
 import EditProfile from "./pages/customer/EditProfile";
+import Notifications from "./pages/customer/Notifications";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
         <Route path="new-order" element={<NewOrder />} />
         <Route path="orders" element={<MyOrders />} />
         <Route path="profile" element={<EditProfile />} />
+        <Route path="notifications" element={<Notifications />} />
       </Route>
 
 

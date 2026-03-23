@@ -28,8 +28,10 @@ const CustomerSidebar = ({ isOpen }) => {
 
         
         <li>
-          <span className="icon">🔔</span>
-          {isOpen && <span className="label">Notifications</span>}
+          <Link to="/customer/notifications" className="sidebar-link">
+            <span className="icon">🔔</span>
+            {isOpen && <span className="label">Notifications</span>}
+          </Link>
         </li>
 
         <li>

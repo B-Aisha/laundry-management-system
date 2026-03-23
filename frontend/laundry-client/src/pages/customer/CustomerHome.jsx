@@ -60,11 +60,17 @@ const CustomerHome = () => {
         <p>View previous laundry orders</p>
       </div>
 
-      <div className="dashboard-card">
+      <div
+        className="dashboard-card"
+        onClick={() => navigate("/customer/notifications")}
+        style={{ cursor: "pointer" }}
+      >
         <div className="card-icon">🔔</div>
         <h4>Notifications</h4>
         <p>Stay updated on your laundry progress</p>
       </div>
+
+
 
     </div> {/* ✅ CLOSE GRID */}
   </div>

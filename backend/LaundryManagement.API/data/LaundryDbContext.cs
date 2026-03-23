@@ -16,7 +16,8 @@ namespace LaundryManagement.API.data
         public DbSet<Staff> Staffs => Set<Staff>();   
 
         public DbSet<Service> Services => Set<Service>();
-        public DbSet<OrderItem> OrderItems => Set<OrderItem>();      
+        public DbSet<OrderItem> OrderItems => Set<OrderItem>(); 
+        public DbSet<Notification> Notifications => Set<Notification>();     
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -75,6 +76,13 @@ namespace LaundryManagement.API.data
                 .HasForeignKey(o => o.AssignedStaffId)
                 .OnDelete(DeleteBehavior.SetNull)
                 .IsRequired(false);
+
+            // Notification → Customer
+            modelBuilder.Entity<Notification>()
+                .HasOne(n => n.Customer)
+                .WithMany()
+                .HasForeignKey(n => n.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

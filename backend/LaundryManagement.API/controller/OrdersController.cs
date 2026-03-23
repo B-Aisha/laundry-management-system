@@ -69,6 +69,15 @@ namespace LaundryManagement.API.Controllers
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
+            // Notify customer — order placed
+            var placedNotification = new Notification
+            {
+                CustomerId = customer.CustomerId,
+                Message = $"Your order #{order.OrderId} has been placed successfully. Total: KES {order.TotalPrice:F2}."
+            };
+            _context.Notifications.Add(placedNotification);
+            await _context.SaveChangesAsync();
+
             return Ok(new
             {
                 order.OrderId,
@@ -178,6 +187,16 @@ namespace LaundryManagement.API.Controllers
 
             await _context.SaveChangesAsync();
 
+            // Notify customer — order assigned
+            var assignedNotification = new Notification
+            {
+                CustomerId = order.CustomerId,
+                Message = $"Your order #{order.OrderId} has been assigned to a staff member and is now being processed."
+            };
+            _context.Notifications.Add(assignedNotification);
+            await _context.SaveChangesAsync();
+
+
             return Ok(new
             {
                 order.OrderId,
@@ -240,6 +259,19 @@ namespace LaundryManagement.API.Controllers
             order.Status = dto.Status;
             order.UpdatedAt = DateTime.UtcNow;
 
+            await _context.SaveChangesAsync();
+
+            // Notify customer — status changed
+            var message = dto.Status == "Completed"
+                ? $"Great news! Your order #{orderId} has been completed and is ready for pickup."
+                : $"Your order #{orderId} has been cancelled.";
+
+            var statusNotification = new Notification
+            {
+                CustomerId = order.CustomerId,
+                Message = message
+            };
+            _context.Notifications.Add(statusNotification);
             await _context.SaveChangesAsync();
 
             return Ok(new { order.OrderId, order.Status, order.UpdatedAt });
