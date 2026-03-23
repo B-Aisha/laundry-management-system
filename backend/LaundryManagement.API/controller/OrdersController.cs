@@ -14,10 +14,12 @@ namespace LaundryManagement.API.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly LaundryDbContext _context;
+        private readonly EmailService _emailService;
 
-        public OrdersController(LaundryDbContext context)
+        public OrdersController(LaundryDbContext context, EmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         // POST api/orders
@@ -77,6 +79,19 @@ namespace LaundryManagement.API.Controllers
             };
             _context.Notifications.Add(placedNotification);
             await _context.SaveChangesAsync();
+
+           // Send email — order placed
+            await _emailService.SendEmailAsync(
+                customer.Email!,
+                customer.FullName ?? "Customer",
+                "Order Placed Successfully",
+                $@"<h2>Order Confirmed!</h2>
+                <p>Hi {customer.FullName},</p>
+                <p>Your order <strong>#{order.OrderId}</strong> has been placed successfully.</p>
+                <p>Total: <strong>KES {order.TotalPrice:F2}</strong></p>
+                <p>We'll notify you once it's assigned to a staff member.</p>
+                <br/><p>Thank you for choosing Laundry Services!</p>"
+            ); 
 
             return Ok(new
             {
@@ -196,6 +211,24 @@ namespace LaundryManagement.API.Controllers
             _context.Notifications.Add(assignedNotification);
             await _context.SaveChangesAsync();
 
+            // Send email — order assigned
+            var orderCustomer = await _context.Customers
+                .FirstOrDefaultAsync(c => c.CustomerId == order.CustomerId);
+
+            if (orderCustomer != null)
+            {
+                await _emailService.SendEmailAsync(
+                    orderCustomer.Email!,
+                    orderCustomer.FullName ?? "Customer",
+                    "Your Order is Being Processed",
+                    $@"<h2>Order Update</h2>
+                    <p>Hi {orderCustomer.FullName},</p>
+                    <p>Your order <strong>#{order.OrderId}</strong> has been assigned to a staff member and is now being processed.</p>
+                    <p>We'll notify you once it's ready for pickup.</p>
+                    <br/><p>Thank you for choosing Laundry Services!</p>"
+                );
+            }
+
 
             return Ok(new
             {
@@ -273,6 +306,35 @@ namespace LaundryManagement.API.Controllers
             };
             _context.Notifications.Add(statusNotification);
             await _context.SaveChangesAsync();
+
+            // Send email — status changed
+            var orderCustomer = await _context.Customers
+                .FirstOrDefaultAsync(c => c.CustomerId == order.CustomerId);
+
+            if (orderCustomer != null)
+            {
+                var emailSubject = dto.Status == "Completed"
+                    ? "Your Laundry is Ready!"
+                    : "Order Cancelled";
+
+                var emailBody = dto.Status == "Completed"
+                    ? $@"<h2>Your Laundry is Ready! 🎉</h2>
+                        <p>Hi {orderCustomer.FullName},</p>
+                        <p>Your order <strong>#{orderId}</strong> has been completed and is ready for pickup.</p>
+                        <p>Thank you for choosing Laundry Services!</p>"
+                    : $@"<h2>Order Cancelled</h2>
+                        <p>Hi {orderCustomer.FullName},</p>
+                        <p>Your order <strong>#{orderId}</strong> has been cancelled.</p>
+                        <p>If you have any questions please contact us.</p>
+                        <br/><p>Thank you for choosing Laundry Services!</p>";
+
+                await _emailService.SendEmailAsync(
+                    orderCustomer.Email!,
+                    orderCustomer.FullName ?? "Customer",
+                    emailSubject,
+                    emailBody
+                );
+            }
 
             return Ok(new { order.OrderId, order.Status, order.UpdatedAt });
         }

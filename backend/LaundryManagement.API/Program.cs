@@ -10,6 +10,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using LaundryManagement.API.models;
 using LaundryManagement.API.data;
+using LaundryManagement.API;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +59,10 @@ builder.Services.AddAuthorization();
 
 // --- Controllers ---
 builder.Services.AddControllers();
+
+// --- Email ---
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddScoped<EmailService>();
 
 // --- Swagger ---
 builder.Services.AddEndpointsApiExplorer();
