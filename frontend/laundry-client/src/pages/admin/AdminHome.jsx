@@ -34,11 +34,11 @@ const AdminHome = () => {
       <p>Edit services and prices</p>
     </Link>
 
-    <div className="dashboard-card">
+    <Link to="/admin/reports" className="dashboard-card">
       <div className="card-icon">📊</div>
       <h3>Reports</h3>
       <p>View business analytics</p>
-    </div>
+    </Link>
 
 
       </div>

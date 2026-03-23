@@ -9,6 +9,8 @@ import Staff from "./pages/admin/Staff";
 import CreateStaff from "./pages/admin/CreateStaff";
 import AdminOrders from "./pages/admin/AdminOrders";
 import ManageServices from "./pages/admin/ManageServices";
+import AdminReports from "./pages/admin/AdminReports";
+
 
 import StaffDashboard from "./pages/staff/StaffDashboard";
 import StaffHome from "./pages/staff/StaffHome";
@@ -36,6 +38,7 @@ function App() {
           <Route path="create-staff" element={<CreateStaff />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="services" element={<ManageServices />} />
+          <Route path="reports" element={<AdminReports />} />
         </Route>
 
         <Route path="/staff" element={<StaffDashboard />}>

@@ -41,9 +41,12 @@ const AdminSidebar = ({ isOpen }) => {
         </li>
         
         <li>
-          <span className="icon">📊</span>
-          {isOpen && <span className="label">Reports</span>}
+          <Link to="/admin/reports">
+            <span className="icon">📊</span>
+            {isOpen && <span className="label">Reports</span>}
+          </Link>
         </li>
+
       </ul>
     </div>
   );
