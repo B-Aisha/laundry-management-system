@@ -48,14 +48,14 @@ const StaffHome = () => {
         </div>
 
         <div
-          className="dashboard-card"
-          onClick={() => navigate("/staff/orders")}
-          style={{ cursor: "pointer" }}
-        >
-          <div className="card-icon">✅</div>
-          <h4>Completed</h4>
-          <p>Orders you have completed</p>
-        </div>
+            className="dashboard-card"
+            onClick={() => navigate("/staff/history")}
+            style={{ cursor: "pointer" }}
+          >
+            <div className="card-icon">✅</div>
+            <h4>Completed</h4>
+            <p>Orders you have completed</p>
+          </div>
       </div>
     </div>
   );

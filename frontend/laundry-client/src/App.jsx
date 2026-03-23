@@ -15,6 +15,7 @@ import AdminReports from "./pages/admin/AdminReports";
 import StaffDashboard from "./pages/staff/StaffDashboard";
 import StaffHome from "./pages/staff/StaffHome";
 import StaffOrders from "./pages/staff/StaffOrders";
+import StaffOrderHistory from "./pages/staff/StaffOrderHistory";
 
 
 import CustomerDashboard from "./pages/customer/CustomerDashboard";
@@ -45,6 +46,7 @@ function App() {
         <Route path="/staff" element={<StaffDashboard />}>
           <Route index element={<StaffHome />} />
           <Route path="orders" element={<StaffOrders />} />
+          <Route path="history" element={<StaffOrderHistory />} />
         </Route>
 
 
