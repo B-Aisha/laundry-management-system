@@ -30,5 +30,7 @@ namespace LaundryManagement.API.models
         public Staff? AssignedStaff { get; set; }
 
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+
+        public string PaymentStatus { get; set; } = "Unpaid"; // Unpaid, Paid, PendingDelivery
     }
 }

@@ -84,8 +84,15 @@ const NewOrder = () => {
       setSelectedItems([]);
       setNotes("");
 
-      // Redirect to orders list after 2 seconds
-      setTimeout(() => navigate("/customer/orders"), 2000);// redirect to customer/orders after making that page
+      // Redirect to payment page after 2 seconds
+      setTimeout(() => navigate("/customer/payment", {
+        state: {
+          orderId: res.data.orderId,
+          totalPrice: res.data.totalPrice
+        }
+      }), 1500);
+
+
     } catch (err) {
         setError(
   typeof err.response?.data === "string"

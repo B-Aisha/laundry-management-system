@@ -64,6 +64,10 @@ builder.Services.AddControllers();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddScoped<EmailService>();
 
+// --- M-Pesa ---
+builder.Services.Configure<MpesaSettings>(builder.Configuration.GetSection("MpesaSettings"));
+builder.Services.AddHttpClient<MpesaService>();
+
 // --- Swagger ---
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

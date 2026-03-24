@@ -17,7 +17,8 @@ namespace LaundryManagement.API.data
 
         public DbSet<Service> Services => Set<Service>();
         public DbSet<OrderItem> OrderItems => Set<OrderItem>(); 
-        public DbSet<Notification> Notifications => Set<Notification>();     
+        public DbSet<Notification> Notifications => Set<Notification>();  
+        public DbSet<Payment> Payments => Set<Payment>();  
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -82,6 +83,14 @@ namespace LaundryManagement.API.data
                 .HasOne(n => n.Customer)
                 .WithMany()
                 .HasForeignKey(n => n.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Payment → Order
+
+            modelBuilder.Entity<Payment>()
+                .HasOne(p => p.Order)
+                .WithMany()
+                .HasForeignKey(p => p.OrderId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
