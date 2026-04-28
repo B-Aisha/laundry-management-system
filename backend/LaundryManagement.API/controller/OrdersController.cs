@@ -256,6 +256,7 @@ namespace LaundryManagement.API.Controllers
                 {
                     o.OrderId,
                     o.Status,
+                    o.PaymentStatus,
                     o.TotalPrice,
                     o.Notes,
                     o.CreatedAt,

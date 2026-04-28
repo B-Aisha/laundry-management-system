@@ -8,6 +8,13 @@ const statusColors = {
   Cancelled: { background: "#fdecea", color: "#ef4444", border: "#ef4444" },
 };
 
+const paymentStatusStyle = {
+  Paid:            { background: "#e8f5e9", color: "#22c55e", border: "#22c55e", label: "Paid" },
+  PendingDelivery: { background: "#fff8e1", color: "#f59e0b", border: "#f59e0b", label: "Cash on Delivery" },
+  Pending:         { background: "#e8f4fd", color: "#3b82f6", border: "#3b82f6", label: "M-Pesa Pending" },
+  Unpaid:          { background: "#fdecea", color: "#ef4444", border: "#ef4444", label: "Unpaid" },
+};
+
 const StaffOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -110,6 +117,7 @@ const StaffOrders = () => {
           {filteredOrders.map((order) => {
             const statusStyle = statusColors[order.status] || {};
             const isExpanded = expandedOrderId === order.orderId;
+            const pymtStyle = paymentStatusStyle[order.paymentStatus] || null;
 
             return (
               <div
@@ -164,6 +172,23 @@ const StaffOrders = () => {
                     >
                       {order.status}
                     </span>
+
+                    {order.status === "Completed" && pymtStyle && (
+                      <span
+                        style={{
+                          padding: "4px 12px",
+                          borderRadius: "20px",
+                          fontSize: "12px",
+                          fontWeight: "600",
+                          background: pymtStyle.background,
+                          color: pymtStyle.color,
+                          border: `1px solid ${pymtStyle.border}`,
+                        }}
+                      >
+                        {pymtStyle.label}
+                      </span>
+                    )}
+                    
                     <span style={{ color: "#aaa", fontSize: "18px" }}>
                       {isExpanded ? "▲" : "▼"}
                     </span>
