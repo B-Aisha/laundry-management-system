@@ -45,8 +45,15 @@ const Login = () => {
     }
 
   } catch (err) {
-    setError("Invalid email or password");
-  } finally {
+  const message = err.response?.data;
+  if (typeof message === "string") {
+    setError(message);
+  } else {
+    setError("Invalid email or password. Please try again.");
+  }
+}
+  
+  finally {
     setLoading(false);
   }
 

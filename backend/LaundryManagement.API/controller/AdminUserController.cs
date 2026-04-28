@@ -5,11 +5,11 @@ using LaundryManagement.API.models;
 using LaundryManagement.API.data;
 using Microsoft.EntityFrameworkCore;
 
-namespace LaundryManagement.API.controllers
+namespace LaundryManagement.API.Controllers
 {
     [ApiController]
     [Route("api/admin/users")]
-   [Authorize(Roles = "Admin")]
+   //[Authorize(Roles = "Admin")]
     public class AdminUserController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
