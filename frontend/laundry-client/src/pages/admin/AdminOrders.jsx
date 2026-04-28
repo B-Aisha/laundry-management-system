@@ -8,6 +8,13 @@ const statusColors = {
   Cancelled: { background: "#fdecea", color: "#ef4444", border: "#ef4444" },
 };
 
+const paymentStatusStyle = {
+  Paid:            { background: "#e8f5e9", color: "#22c55e", border: "#22c55e", label: "Paid" },
+  PendingDelivery: { background: "#fff8e1", color: "#f59e0b", border: "#f59e0b", label: "Cash on Delivery" },
+  Pending:         { background: "#e8f4fd", color: "#3b82f6", border: "#3b82f6", label: "M-Pesa Pending" },
+  Unpaid:          { background: "#fdecea", color: "#ef4444", border: "#ef4444", label: "Unpaid" },
+};
+
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
   const [staff, setStaff] = useState([]);
@@ -15,7 +22,7 @@ const AdminOrders = () => {
   const [error, setError] = useState("");
   const [expandedOrderId, setExpandedOrderId] = useState(null);
   const [filterStatus, setFilterStatus] = useState("All");
-  const [assigning, setAssigning] = useState(null); // orderId being assigned
+  const [assigning, setAssigning] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,8 +51,6 @@ const AdminOrders = () => {
     try {
       setAssigning(orderId);
       const res = await api.put(`/orders/${orderId}/assign/${staffId}`);
-
-      // Update the order in state
       setOrders((prev) =>
         prev.map((o) =>
           o.orderId === orderId
@@ -123,6 +128,7 @@ const AdminOrders = () => {
           {filteredOrders.map((order) => {
             const statusStyle = statusColors[order.status] || {};
             const isExpanded = expandedOrderId === order.orderId;
+            const pymtStyle = paymentStatusStyle[order.paymentStatus] || null;
 
             return (
               <div
@@ -162,8 +168,10 @@ const AdminOrders = () => {
                     </p>
                   </div>
 
-                  <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap", justifyContent: "flex-end" }}>
                     <strong>KES {order.totalPrice?.toFixed(2)}</strong>
+
+                    {/* Order status badge */}
                     <span
                       style={{
                         padding: "4px 12px",
@@ -177,6 +185,24 @@ const AdminOrders = () => {
                     >
                       {order.status}
                     </span>
+
+                    {/* Payment status badge — only shown for Completed orders */}
+                    {order.status === "Completed" && pymtStyle && (
+                      <span
+                        style={{
+                          padding: "4px 12px",
+                          borderRadius: "20px",
+                          fontSize: "12px",
+                          fontWeight: "600",
+                          background: pymtStyle.background,
+                          color: pymtStyle.color,
+                          border: `1px solid ${pymtStyle.border}`,
+                        }}
+                      >
+                        {pymtStyle.label}
+                      </span>
+                    )}
+
                     <span style={{ color: "#aaa", fontSize: "18px" }}>
                       {isExpanded ? "▲" : "▼"}
                     </span>
@@ -211,10 +237,33 @@ const AdminOrders = () => {
 
                     <hr style={{ margin: "10px 0" }} />
 
+                    {/* Total */}
                     <div style={{ display: "flex", justifyContent: "space-between", fontWeight: "600" }}>
                       <span>Total</span>
                       <span>KES {order.totalPrice?.toFixed(2)}</span>
                     </div>
+
+                    {/* Payment info row — only for Completed orders */}
+                    {order.status === "Completed" && order.paymentStatus && (
+                      <div
+                        style={{
+                          marginTop: "8px",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          fontSize: "14px",
+                        }}
+                      >
+                        <span style={{ color: "#888" }}>Payment</span>
+                        <span
+                          style={{
+                            fontWeight: "600",
+                            color: pymtStyle?.color || "#333",
+                          }}
+                        >
+                          {pymtStyle?.label || order.paymentStatus}
+                        </span>
+                      </div>
+                    )}
 
                     {/* Assign Staff */}
                     <div style={{ marginTop: "16px" }}>

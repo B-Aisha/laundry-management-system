@@ -9,7 +9,7 @@ namespace LaundryManagement.API.controllers
 {
     [ApiController]
     [Route("api/admin/users")]
-   //[Authorize(Roles = "Admin")]
+   [Authorize(Roles = "Admin")]
     public class AdminUserController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -153,7 +153,7 @@ namespace LaundryManagement.API.controllers
             return Ok("Staff account created successfully");
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}/toggle-active")]
         public async Task<IActionResult> ToggleActive(string id)
         {

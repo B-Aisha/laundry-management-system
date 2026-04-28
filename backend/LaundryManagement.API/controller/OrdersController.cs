@@ -123,6 +123,7 @@ namespace LaundryManagement.API.Controllers
                 {
                     o.OrderId,
                     o.Status,
+                    o.PaymentStatus,
                     o.TotalPrice,
                     o.Notes,
                     o.CreatedAt,
@@ -156,6 +157,7 @@ namespace LaundryManagement.API.Controllers
                 {
                     o.OrderId,
                     o.Status,
+                    o.PaymentStatus,
                     o.TotalPrice,
                     o.Notes,
                     o.CreatedAt,
@@ -291,6 +293,11 @@ namespace LaundryManagement.API.Controllers
 
             order.Status = dto.Status;
             order.UpdatedAt = DateTime.UtcNow;
+
+            if (dto.Status == "Completed")
+            {
+                order.PaymentStatus = "Unpaid";
+            }
 
             await _context.SaveChangesAsync();
 

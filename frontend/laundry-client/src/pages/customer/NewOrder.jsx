@@ -84,13 +84,8 @@ const NewOrder = () => {
       setSelectedItems([]);
       setNotes("");
 
-      // Redirect to payment page after 2 seconds
-      setTimeout(() => navigate("/customer/payment", {
-        state: {
-          orderId: res.data.orderId,
-          totalPrice: res.data.totalPrice
-        }
-      }), 1500);
+      // Redirect to my orders page after 2 seconds
+      setTimeout(() => navigate("/customer/orders"), 1500);
 
 
     } catch (err) {
