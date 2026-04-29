@@ -39,7 +39,7 @@ namespace LaundryManagement.API.Controllers
 
             var userExists = await _userManager.FindByEmailAsync(dto.Email);
             if (userExists != null)
-                return BadRequest("User already exists.");
+                return BadRequest("User with this email already exists.");
 
             var user = new ApplicationUser
             {
@@ -91,7 +91,7 @@ namespace LaundryManagement.API.Controllers
             var passwordValid = await _userManager.CheckPasswordAsync(user, dto.Password);
 
             if (!passwordValid)
-                return Unauthorized("Invalid credentials.");
+                return Unauthorized("Invalid password.");
 
             var roles = await _userManager.GetRolesAsync(user);
 

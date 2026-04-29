@@ -153,7 +153,6 @@ namespace LaundryManagement.API.Controllers
             return Ok("Staff account created successfully");
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPut("{id}/toggle-active")]
         public async Task<IActionResult> ToggleActive(string id)
         {
