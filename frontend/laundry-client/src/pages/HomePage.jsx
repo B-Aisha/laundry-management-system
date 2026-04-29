@@ -2,88 +2,177 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./HomePage.css";
 
+// Optional: import a photo for the About section
+// import aboutImg from "../../assets/laundry-about.jpg";
+
 const HomePage = () => {
   return (
     <div>
-      {/* NAVBAR */}
+      {/* ── NAVBAR ── */}
       <nav className="navbar">
-        <div className="logo">MLB Laundry</div>
+        <div className="logo">MLB <span>Laundry</span></div>
         <ul className="nav-links">
           <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
           <li><a href="#contact">Contact</a></li>
           <li className="login-btn"><a href="/auth/login">Login</a></li>
         </ul>
       </nav>
 
-      {/* HERO SECTION */}
+      {/* ── HERO ── */}
       <section id="home" className="hero">
-        <h1>Reliable & Affordable Laundry Services</h1>
-        <p>
-          We take care of your clothes from pickup to delivery, keeping you
-          informed at every stage.
-        </p>
-        <a href="/auth/signup" className="primary-btn">Create Account</a>
-      </section>
+        <div className="hero-content">
+          <span className="hero-eyebrow">Nairobi's Trusted Laundry</span>
+          <h1>
+            Fresh &amp; Clean,<br />
+            <em>Every Single Time.</em>
+          </h1>
+          <p>
+            We take care of your clothes from pickup to delivery,
+            keeping you informed at every stage with real-time notifications.
+          </p>
+          <div className="hero-actions">
+            <a href="/auth/signup" className="primary-btn">Create Account</a>
+            <a href="#services" className="secondary-btn">Our Services</a>
+          </div>
+        </div>
 
-      {/* SERVICES SECTION */}
-      <section id="services" className="services">
-        <h2>Our Services</h2>
-        <div className="service-cards">
-          <div className="card">
-            <h3>Wash & Fold</h3>
-            <p>Everyday laundry washed, dried, and neatly folded.</p>
+        {/* Stats strip */}
+        <div className="hero-stats">
+          <div className="hero-stat">
+            <strong>500+</strong>
+            <span>Happy Customers</span>
           </div>
-          <div className="card">
-            <h3>Dry Cleaning</h3>
-            <p>Professional care for delicate and special garments.</p>
+          <div className="hero-stat">
+            <strong>24h</strong>
+            <span>Turnaround Time</span>
           </div>
-          <div className="card">
-            <h3>Ironing</h3>
-            <p>Perfectly pressed clothes ready to wear.</p>
+          <div className="hero-stat">
+            <strong>4.9★</strong>
+            <span>Customer Rating</span>
           </div>
-          <div className="card">
-            <h3>Order Tracking</h3>
-            <p>Get email notifications as your laundry progresses.</p>
+          <div className="hero-stat">
+            <strong>100%</strong>
+            <span>Care Guarantee</span>
           </div>
         </div>
       </section>
 
-      {/* ABOUT SECTION */}
+      {/* ── SERVICES ── */}
+      <section id="services" className="services">
+        <div className="services-header">
+          <p className="section-label">What We Offer</p>
+          <h2 className="section-title">Professional Laundry<br />Services</h2>
+          <p className="section-subtitle">
+            From everyday washing to delicate dry cleaning — we handle it all
+            with care and precision.
+          </p>
+        </div>
+
+        <div className="service-cards">
+          <div className="card">
+            <span className="card-icon">🫧</span>
+            <h3>Wash &amp; Fold</h3>
+            <p>Everyday laundry washed with quality detergents, dried, and neatly folded ready for collection.</p>
+          </div>
+          <div className="card">
+            <span className="card-icon">👔</span>
+            <h3>Dry Cleaning</h3>
+            <p>Professional solvent-based cleaning for delicate fabrics, suits, and special garments.</p>
+          </div>
+          <div className="card">
+            <span className="card-icon">♨️</span>
+            <h3>Ironing</h3>
+            <p>Crisp, perfectly pressed clothes steamed and ironed to a professional finish.</p>
+          </div>
+          <div className="card">
+            <span className="card-icon">📲</span>
+            <h3>Order Tracking</h3>
+            <p>Real-time email and in-app notifications as your laundry moves through each stage.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── ABOUT ── */}
       <section id="about" className="about">
-        <h2>About Our Laundry</h2>
-        <p>
-          SmartWash Laundry is a small business dedicated to providing
-          high-quality laundry services with transparency and convenience.
-          Our system allows customers to place orders, receive notifications,
-          and track their laundry status in real time.
-        </p>
+        <div className="about-text">
+          <p className="section-label">About Us</p>
+          <h2 className="section-title">Small Business,<br />Big Standards.</h2>
+          <p className="section-subtitle">
+            MLB Laundry is a Nairobi-based laundry service built on transparency,
+            reliability, and genuine care for your garments. Our digital platform
+            lets you place orders, track progress, and pay seamlessly.
+          </p>
+
+          <div className="about-features">
+            <div className="about-feature">
+              <span className="about-feature-icon">✅</span>
+              <div>
+                <h4>Quality Guaranteed</h4>
+                <p>Every garment treated with appropriate care based on fabric type and care labels.</p>
+              </div>
+            </div>
+            <div className="about-feature">
+              <span className="about-feature-icon">🔔</span>
+              <div>
+                <h4>Stay Informed</h4>
+                <p>Email and in-app notifications at every step — from order placed to ready for pickup.</p>
+              </div>
+            </div>
+            <div className="about-feature">
+              <span className="about-feature-icon">💳</span>
+              <div>
+                <h4>Flexible Payments</h4>
+                <p>Pay via M-Pesa STK push or cash on pickup — whichever works best for you.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="about-visual">
+          <div className="about-img-wrap">
+            {/* Replace the placeholder below with an <img> once you have a photo:
+                <img src={aboutImg} alt="Our laundry facility" /> */}
+            <div className="about-img-placeholder">
+              <span>🧺</span>
+              <p>Add a photo of<br />your facility here</p>
+            </div>
+          </div>
+          <div className="about-badge">
+            <strong>3+</strong>
+            <span>Years of Service</span>
+          </div>
+        </div>
       </section>
 
-      {/* SIGN-UP & APPROVAL NOTICE */}
-      <section className="approval">
-        <h2>New User Registration</h2>
-        <p>
-          Customers without an account are required to sign up first.
-          Once registered, your account will be reviewed and approved
-          by the laundry manager before you can access the system.
-        </p>
-        <p className="note">
-          📩 You will receive an email notification once your access is approved.
-        </p>
-      </section>
-
-      {/* CONTACT SECTION */}
+      {/* ── CONTACT ── */}
       <section id="contact" className="contact">
-        <h2>Contact Us</h2>
-        <p>Email: support@mbllaundry.com</p>
-        <p>Phone: +254 7XX XXX XXX</p>
-        <p>Location: Nairobi, Kenya</p>
+        <p className="section-label">Get In Touch</p>
+        <h2 className="section-title">Contact Us</h2>
+
+        <div className="contact-grid">
+          <div className="contact-card">
+            <span className="contact-card-icon">✉️</span>
+            <h4>Email</h4>
+            <p>support@mbllaundry.com</p>
+          </div>
+          <div className="contact-card">
+            <span className="contact-card-icon">📞</span>
+            <h4>Phone</h4>
+            <p>+254 7XX XXX XXX</p>
+          </div>
+          <div className="contact-card">
+            <span className="contact-card-icon">📍</span>
+            <h4>Location</h4>
+            <p>Nairobi, Kenya</p>
+          </div>
+        </div>
       </section>
 
-      {/* FOOTER */}
+      {/* ── FOOTER ── */}
       <footer className="footer">
+        <div className="footer-logo">MLB <span>Laundry</span></div>
         <p>© {new Date().getFullYear()} MBL Laundry. All rights reserved.</p>
       </footer>
     </div>
