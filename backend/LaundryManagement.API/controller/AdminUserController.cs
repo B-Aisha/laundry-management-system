@@ -56,7 +56,26 @@ namespace LaundryManagement.API.Controllers
             var user = await _userManager.FindByIdAsync(id);
             if (user == null) return NotFound();
 
-            await _userManager.DeleteAsync(user);
+            // ✅ Remove from Customers table if exists
+            var existingCustomer = await _context.Customers
+                .FirstOrDefaultAsync(c => c.ApplicationUserId == id);
+            if (existingCustomer != null)
+                _context.Customers.Remove(existingCustomer);
+
+            // ✅ Remove from Staffs table if exists
+            var existingStaff = await _context.Staffs
+                .FirstOrDefaultAsync(s => s.ApplicationUserId == id);
+            if (existingStaff != null)
+                _context.Staffs.Remove(existingStaff);
+
+            await _context.SaveChangesAsync();
+
+            // ✅ Now safe to delete the user
+            var result = await _userManager.DeleteAsync(user);
+
+            if (!result.Succeeded)
+                return StatusCode(500, result.Errors);
+
             return Ok("User deleted");
         }
 
