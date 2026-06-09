@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./HomePage.css";
 
-// Optional: import a photo for the About section
-// import aboutImg from "../../assets/laundry-about.jpg";
+import laundryImg from "../assets/laundry-bg.jpg";
 
 const HomePage = () => {
   return (
@@ -131,14 +130,7 @@ const HomePage = () => {
         </div>
 
         <div className="about-visual">
-          <div className="about-img-wrap">
-            {/* Replace the placeholder below with an <img> once you have a photo:
-                <img src={aboutImg} alt="Our laundry facility" /> */}
-            <div className="about-img-placeholder">
-              <span>🧺</span>
-              <p>Add a photo of<br />your facility here</p>
-            </div>
-          </div>
+          <img src={laundryImg} alt="Our laundry facility" />
           <div className="about-badge">
             <strong>3+</strong>
             <span>Years of Service</span>
@@ -160,12 +152,12 @@ const HomePage = () => {
           <div className="contact-card">
             <span className="contact-card-icon">📞</span>
             <h4>Phone</h4>
-            <p>+254 7XX XXX XXX</p>
+            <p>+254 718567868</p>
           </div>
           <div className="contact-card">
             <span className="contact-card-icon">📍</span>
             <h4>Location</h4>
-            <p>Nairobi, Kenya</p>
+            <p>Bogani Road Nairobi, Kenya</p>
           </div>
         </div>
       </section>

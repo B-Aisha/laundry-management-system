@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import api from "../../api/axios";
 import "./Auth.css";
 
-// Import your laundry image — adjust the path to where you store it
+
 import laundryImg from "../../assets/laundry-bg.jpg";
 
 const Login = () => {
