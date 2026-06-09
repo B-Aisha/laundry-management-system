@@ -88,10 +88,20 @@ namespace LaundryManagement.API.Controllers
             if (!user.IsActive)
                 return Unauthorized("Account is deactivated. Contact admin.");
 
-            var passwordValid = await _userManager.CheckPasswordAsync(user, dto.Password);
+            var result = await _userManager.CheckPasswordAsync(user, dto.Password);
 
-            if (!passwordValid)
-                return Unauthorized("Invalid password.");
+            if (!result)
+            {
+                await _userManager.AccessFailedAsync(user); // increments failed count
+
+                if (await _userManager.IsLockedOutAsync(user))
+                    return Unauthorized("Account locked due to too many failed attempts. Try again in 15 minutes.");
+
+                return Unauthorized("Invalid credentials.");
+            }
+
+            // Reset count on successful login
+            await _userManager.ResetAccessFailedCountAsync(user);
 
             var roles = await _userManager.GetRolesAsync(user);
 
@@ -114,7 +124,7 @@ namespace LaundryManagement.API.Controllers
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(3),
+                expires: DateTime.UtcNow.AddHours(1),
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
             );
 
