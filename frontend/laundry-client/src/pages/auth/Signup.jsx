@@ -22,8 +22,13 @@ const Signup = () => {
   const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const { name, value } = e.target;
+
+  if (name === "fullName" && /[0-9]/.test(value)) return;
+  if (name === "phone" && value.length > 10) return;
+
+  setFormData({ ...formData, [name]: value });
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,9 +36,14 @@ const Signup = () => {
     setSuccess("");
 
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
+  setError("Passwords do not match.");
+  return;
+}
+
+if (formData.phone && formData.phone.length < 10) {
+  setError("Phone number must be at least 10 digits.");
+  return;
+}
 
     try {
       setLoading(true);
@@ -130,6 +140,8 @@ const Signup = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="e.g. 0712345678"
+                maxLength={10}
+                inputMode="numeric"
               />
             </div>
 
@@ -157,8 +169,8 @@ const Signup = () => {
               />
             </div>
 
-            <button className="auth-btn" type="submit" disabled={loading}>
-              {loading ? "Creating account..." : "Create Account"}
+            <button className="auth-btn" type="submit" disabled={loading || !!success}>
+              {loading ? "Creating account..." : success ? "Redirecting..." : "Create Account"}
             </button>
           </form>
 
